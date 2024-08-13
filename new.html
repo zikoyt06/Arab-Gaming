@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arab-Games</title>
+    <meta name="author" content="Zakareia">
+    <meta name="description" content="This page contains some information about Flappy Bird games and how to download this game.">
+    <style>
+        /* Common Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        header, footer {
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        section {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-out;
+        }
+        .social-aside {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1000;
+        }
+        .social-aside a {
+            display: block;
+            margin: 0 10px;
+            animation: bounce 2s infinite;
+        }
+        .social-aside img {
+            width: 24px;
+            height: 24px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .btn-download, .btn-login {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-download:hover, .btn-login:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .btn-login {
+            background-color: #007bff;
+            color: #fff;
+            border: 2px solid #0056b3;
+        }
+        .btn-login:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Custom Toggle Switch */
+        .theme-toggle {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: 50px;
+            height: 25px;
+            background-color: #ccc;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 3px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        .theme-toggle .switch {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle.active {
+            background-color: #4caf50;
+        }
+        .theme-toggle.active .switch {
+            transform: translateX(25px);
+        }
+
+        /* Light Theme Styles */
+        body.light-theme {
+            background-color: #ffffff;
+            color: #333;
+        }
+        header.light-theme {
+            background: rgba(255, 204, 0, 0.8);
+            color: #333;
+        }
+        footer.light-theme {
+            background: #333;
+            color: #fff;
+        }
+        .btn-download.light-theme {
+            background-color: #ffcc00;
+            color: #333;
+        }
+
+        /* Dark Theme Styles */
+        body.dark-theme {
+            background-color: #333;
+            color: #eee;
+        }
+        header.dark-theme {
+            background: rgba(0, 0, 0, 0.8);
+            color: #eee;
+        }
+        footer.dark-theme {
+            background: #222;
+            color: #fff;
+        }
+        .btn-download.dark-theme {
+            background-color: #555;
+            color: #eee;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Form Styles */
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            margin-bottom: 1rem;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        .btn-download.hidden {
+            display: none;
+        }
+        .email-error {
+            color: red;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .social-aside {
+                top: 5px;
+                right: 5px;
+                flex-direction: row;
+                margin: 0;
+                padding: 0;
+            }
+            .social-aside a {
+                margin: 0 5px;
+            }
+            header, footer {
+                padding: 0.5rem;
+            }
+            main {
+                padding: 1rem;
+            }
+            .form-container {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn-download {
+                padding: 8px 16px;
+            }
+            .form-container input, .form-container button {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <header class="light-theme">
+        <h1>Arab-Games</h1>
+    </header>
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="switch"></div>
+    </div>
+    <main>
+        <section>
+            <h2>About This Website</h2>
+            <p>This website is for downloading my games. Soon, I will add these games to the Play Store so you can enjoy them.</p>
+        </section>
+        <section>
+            <h2>How to Download</h2>
+            <p>To download the games, first enter your email. After that, you can access the download link.</p>
+            <a id="download-btn" href="#" class="btn-download hidden" target="_blank">Download</a>
+        </section>
+        <!-- Email Form -->
+        <section>
+            <div class="form-container">
+                <h2>Enter Your Email</h2>
+                <form id="email-form">
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <button type="button" onclick="handleEmail()">Send</button>
+                    <p id="email-error" class="email-error"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+    <aside class="social-aside">
+        <a href="https://instagram.com/ziko_yt_02" target="_blank" aria-label="Instagram">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+        </a>
+        <a href="https://wa.me/212644194692" target="_blank" aria-label="WhatsApp">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+        </a>
+    </aside>
+    <footer class="light-theme">
+        <p>&copy; 2024 Zakareia. All rights reserved.</p>
+    </footer>
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const header = document.querySelector('header');
+            const footer = document.querySelector('footer');
+            const btnDownload = document.querySelector('.btn-download');
+            const themeToggleBtn = document.querySelector('.theme-toggle');
+
+            if (body.classList.contains('light-theme')) {
+                body.classList.replace('light-theme', 'dark-theme');
+                header.classList.replace('light-theme', 'dark-theme');
+                footer.classList.replace('light-theme', 'dark-theme');
+                btnDownload.classList.replace('light-theme', 'dark-theme');
+                themeToggleBtn.classList.add('active');
+            } else {
+                body.classList.replace('dark-theme', 'light-theme');
+                header.classList.replace('dark-theme', 'light-theme');
+                footer.classList.replace('dark-theme', 'light-theme');
+                btnDownload.classList.replace('dark-theme', 'light-theme');
+                themeToggleBtn.classList.remove('active');
+            }
+        }
+
+        function handleEmail() {
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('email-error');
+            const downloadBtn = document.getElementById('download-btn');
+            
+            if (email && validateEmail(email)) {
+                // Use fetch to send an AJAX request
+                fetch('/send-verification', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        downloadBtn.href = 'https://www.youtube.com'; // Update with actual download link
+                        downloadBtn.classList.remove('hidden');
+                        emailError.innerText = '';
+                    } else {
+                        emailError.innerText = 'Failed to send verification code.';
+                        downloadBtn.classList.add('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    emailError.innerText = 'An error occurred.';
+                    downloadBtn.classList.add('hidden');
+                });
+            } else {
+                emailError.innerText = 'Please enter a valid email address.';
+                downloadBtn.classList.add('hidden');
+            }
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+    </script>
+</body>
+</html>
